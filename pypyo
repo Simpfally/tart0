@@ -1,0 +1,2 @@
+#!/bin/bash
+/home/savar/pypy3-v6.0.0-linux64/bin/pypy3 $1 $2
