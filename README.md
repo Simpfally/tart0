@@ -14,7 +14,7 @@ Ce dossier contient tout les testes unitaires. La plupart des fonctions de base 
 
 - *make test* lance le fichier test_all.py qui lance tout les tests à l'aide de la bibliothèque unittest.
 
-## Tlayers
+## Players
 
 Contient un fichier par joueur pouvant être utilisé. Un joueur avec une heuristique de base, un joueur aléatoire et une variante d'ucb sont implémenté.
 
