@@ -1,2 +1,0 @@
-#!/bin/bash
-/home/savar/pypy3-v6.0.0-linux64/bin/pypy3 -m cProfile -s tottime bench_ai_random.py
