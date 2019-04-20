@@ -32,11 +32,12 @@ def fmc(N, gen):
 
                 self.N_playout = 0
                 self.t = None
-                self.l_ai = [players.heuristics.random(
-                    gen)() for _ in range(0, N)]
+                self.l_ai = [players.heuristics.random(gen)() for _ in range(0, N)]
 
             def act(self, obs, movs):
                 """ Return the move to play """
+                if len(movs) == 1:
+                    return movs[0]
                 self.t = None
                 self.N_playout = 0
                 self.determine(obs, movs)
@@ -104,14 +105,23 @@ class fmc_node:
             return -1
         #exploi = self.n_won/self.n_playout
         exploi = self.wonpts/self.n_playout
-        explor = sqrt(self.cst_explo*N_playout/self.n_playout)
+        explor = sqrt(self.cst_explo*(N_playout/self.n_playout))
         return exploi + explor
 
     def playout(self):
         """ Perform a playout from the intern state """
         state_c = self.state.copy()
         if not state_c.ended():
-            play_just(state_c, self.l_ai, 0, 0)
+            ###
+            playing = True
+            while playing:
+                mmm = state_c.moves()
+
+                a = self.l_ai[state_c.n_toplay].act(state_c.obs(), mmm)
+                playing = state_c.step(self.gen.choice(mmm), 0,0)
+
+            ###play_just(state_c, self.l_ai, 0, 0)
+            ###
         score = state_c.score()
         pts_won = score[self.n_track]
         self.wonpts += pts_won

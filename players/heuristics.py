@@ -16,7 +16,7 @@ def random(gen):
         def act(self, obs, moves):
             # pylint: disable=unused-argument
             """ Return the move to play """
-            return self.gen.choice(moves)
+            return gen.choice(moves)
     return random_c
 
 
