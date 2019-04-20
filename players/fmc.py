@@ -32,7 +32,9 @@ def fmc(N, gen):
 
                 self.N_playout = 0
                 self.t = None
-                self.l_ai = [players.heuristics.random(gen)() for _ in range(0, N)]
+                # using a class factory cause a big slowdown on pypy
+                #self.l_ai = [players.heuristics.random(gen)() for _ in range(0, N)]
+                self.l_ai = [players.heuristics.random_p(gen) for _ in range(0, N)]
 
             def act(self, obs, movs):
                 """ Return the move to play """
@@ -112,16 +114,14 @@ class fmc_node:
         """ Perform a playout from the intern state """
         state_c = self.state.copy()
         if not state_c.ended():
-            ###
             playing = True
             while playing:
                 mmm = state_c.moves()
 
                 a = self.l_ai[state_c.n_toplay].act(state_c.obs(), mmm)
-                playing = state_c.step(self.gen.choice(mmm), 0,0)
+                playing = state_c.step(a, 0,0)
 
-            ###play_just(state_c, self.l_ai, 0, 0)
-            ###
+            #play_just(state_c, self.l_ai, 0, 0) #slower
         score = state_c.score()
         pts_won = score[self.n_track]
         self.wonpts += pts_won

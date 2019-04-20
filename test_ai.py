@@ -37,9 +37,6 @@ args = parser.parse_args()
 if args.output is None:
     print("Warning : scores won't be saved to a file since no filename has been given")
 start_time = time.time()
-n = args.N
-nb_players = 3
-n_att = 0
 gen = random.Random()
 gen2 = random.Random()
 gen.seed()
@@ -53,7 +50,10 @@ A = 400 #
 if args.a is not None:
     A = int(args.a)
 
-n_playout = 2500
+n = args.N
+nb_players = 3
+n_att = 0
+n_playout = 500
 n_play_per_deter = 1
 c = 1000
 
@@ -67,10 +67,6 @@ params_A = { "N": nb_players,
         "select_move": move_wonpts
         }
 params_A["n"] = 8
-params_A["n_d"] = 1
-params_A["cst_explo"] = 1000
-
-
 params_B = { "N": nb_players,
         "n" : n_playout,
         "n_d": n_play_per_deter,
@@ -80,13 +76,9 @@ params_B = { "N": nb_players,
         "select_move": move_wonpts
         }
 
-params_B["n"] = 8
-params_B["n_d"] = 1
-
-
 A_ai = ucb(params_A)
-B_ai = ucb(params_B)
-#B_ai = heuristics.random(gen2)
+#B_ai = ucb(params_B)
+B_ai = heuristics.random(gen2)
 B_rand = True
 
 if B_rand:

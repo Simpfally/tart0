@@ -19,6 +19,19 @@ def random(gen):
             return gen.choice(moves)
     return random_c
 
+class random_p:
+    """
+    Simply return a random move among the possible
+    ones
+    doesn't use a class factory for pypy
+    """
+    name = "tarot_random_ai"
+    def __init__(self, gen):
+        self.gen = gen
+
+    def act(self, obs, moves):
+        """ Return the move to play """
+        return self.gen.choice(moves)
 
 def heuristic(gen):
     """ Parameterized class """
